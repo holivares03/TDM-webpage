@@ -1,0 +1,495 @@
+---
+// src/pages/bracket.astro
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const base = import.meta.env.BASE_URL;
+
+// Datos estáticos del bracket
+const bracketData: Record<string, any> = {
+  // Cuartos de Final
+  qf1: {
+    player1: { 
+      name: "MonkiDonki", 
+      photo: "https://a.ppy.sh/5298487",
+      score: 0
+    },
+    player2: { 
+      name: "Touche", 
+      photo: "https://a.ppy.sh/1603962",
+      score: 1
+    },
+    winner: 2,
+    games: [
+      { name: "Wii Sports: Bowling", winner: 2 },
+    ]
+  },
+  qf2: {
+    player1: { 
+      name: "Blackmoderm10", 
+      photo: "https://a.ppy.sh/7963246",
+      score: 1 
+    },
+    player2: { 
+      name: "Intercambing", 
+      photo: "https://a.ppy.sh/2546001",
+      score: 0 
+    },
+    winner: 1,
+    games: [
+      { name: "osu!", winner: 1 },
+    ]
+  },
+  qf3: {
+    player1: { 
+      name: "Lasseh", 
+      photo: "https://a.ppy.sh/4881251",
+      score: 1
+    },
+    player2: { 
+      name: "yoistr", 
+      photo: "https://a.ppy.sh/36679874",
+      score: 0
+    },
+    winner: 1,
+    games: [
+      { name: "TETR.IO", winner: 1 },
+    ]
+  },
+  qf4: {
+    player1: { 
+      name: "Mathi", 
+      photo: "https://a.ppy.sh/5339515",
+      score: 0
+    },
+    player2: { 
+      name: "rathalina", 
+      photo: "https://a.ppy.sh/36471978",
+      score: 1
+    },
+    winner: 2,
+    games: [
+      { name: "Wii Sports: Bowling", winner: 2 },
+    ]
+  },
+  
+  // Semifinales
+  sf1: {
+    player1: { 
+      name: "Touche", 
+      photo: "https://a.ppy.sh/1603962",
+      score: 0
+    },
+    player2: { 
+      name: "Blackmoderm10", 
+      photo: "https://a.ppy.sh/7963246",
+      score: 1 
+    },
+    winner: 2,
+    games: [
+      { name: "Wario Ware Smooth Moves", winner: 2 },
+    ]
+  },
+  sf2: {
+    player1: { 
+      name: "Lasseh", 
+      photo: "https://a.ppy.sh/4881251",
+      score: 1
+    },
+    player2: { 
+      name: "rathalina", 
+      photo: "https://a.ppy.sh/36471978",
+      score: 0
+    },
+    winner: 1,
+    games: [
+      { name: "Wii Sports: Tiro con arco", winner: 1 },
+    ]
+  },
+  
+  // Gran Final
+  gf: {
+    player1: { 
+      name: "Blackmoderm10", 
+      photo: "https://a.ppy.sh/7963246",
+      score: 2 
+    },
+    player2: { 
+      name: "Lasseh", 
+      photo: "https://a.ppy.sh/4881251",
+      score: 0 
+    },
+    winner: 1,
+    games: [
+      { name: "Wii Sports: Boxing", winner: 1 },
+      { name: "Wii Sports: Tenis", winner: 1 },
+    ]
+  }
+};
+
+// Calcular campeón
+const champion = bracketData.gf.winner === 1 
+  ? bracketData.gf.player1 
+  : bracketData.gf.player2;
+---
+
+<BaseLayout title="Torre del Mago - Bracket">
+  <section class="max-w-7xl mx-auto px-6 py-12">
+    
+    <h1 class="text-5xl font-bold text-center mb-12 font-space-mono text-[var(--color-text)]">
+      Bracket - Eliminación Simple
+    </h1>
+
+    <!-- Bracket Container -->
+    <div class="bracket-container overflow-x-auto pb-8">
+      <div class="bracket min-w-max">
+        
+        <!-- Cuartos de Final -->
+        <div class="bracket-round">
+          <h3 class="text-2xl font-bold text-center mb-6 font-space-mono">Cuartos de Final</h3>
+          
+          {['qf1', 'qf2', 'qf3', 'qf4'].map(matchId => {
+            const match = bracketData[matchId];
+            return (
+              <div class="match" data-match-id={matchId} data-round="quarterfinals">
+                <div class={`match-player ${match.winner === 1 ? 'winner' : ''}`}>
+                  <div class="player-info">
+                    <img src={match.player1.photo} class="player-avatar" alt={match.player1.name}>
+                    <span class="player-name">{match.player1.name}</span>
+                  </div>
+                  <span class="player-score">{match.player1.score}</span>
+                </div>
+                <div class="match-divider">vs</div>
+                <div class={`match-player ${match.winner === 2 ? 'winner' : ''}`}>
+                  <div class="player-info">
+                    <img src={match.player2.photo} class="player-avatar" alt={match.player2.name}>
+                    <span class="player-name">{match.player2.name}</span>
+                  </div>
+                  <span class="player-score">{match.player2.score}</span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <!-- Semifinales -->
+        <div class="bracket-round">
+          <h3 class="text-2xl font-bold text-center mb-6 font-space-mono">Semifinales</h3>
+          
+          {['sf1', 'sf2'].map(matchId => {
+            const match = bracketData[matchId];
+            return (
+              <div class="match" data-match-id={matchId} data-round="semifinals">
+                <div class={`match-player ${match.winner === 1 ? 'winner' : ''}`}>
+                  <div class="player-info">
+                    <img src={match.player1.photo} class="player-avatar" alt={match.player1.name}>
+                    <span class="player-name">{match.player1.name}</span>
+                  </div>
+                  <span class="player-score">{match.player1.score}</span>
+                </div>
+                <div class="match-divider">vs</div>
+                <div class={`match-player ${match.winner === 2 ? 'winner' : ''}`}>
+                  <div class="player-info">
+                    <img src={match.player2.photo} class="player-avatar" alt={match.player2.name}>
+                    <span class="player-name">{match.player2.name}</span>
+                  </div>
+                  <span class="player-score">{match.player2.score}</span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <!-- Final -->
+        <div class="bracket-round">
+          <h3 class="text-2xl font-bold text-center mb-6 font-space-mono">Gran Final</h3>
+          
+          <div class="match grand-final" data-match-id="gf" data-round="grandfinal">
+            <div class={`match-player ${bracketData.gf.winner === 1 ? 'winner' : ''}`}>
+              <div class="player-info">
+                <img src={bracketData.gf.player1.photo} class="player-avatar" alt={bracketData.gf.player1.name}>
+                <span class="player-name">{bracketData.gf.player1.name}</span>
+              </div>
+              <span class="player-score">{bracketData.gf.player1.score}</span>
+            </div>
+            <div class="match-divider">vs</div>
+            <div class={`match-player ${bracketData.gf.winner === 2 ? 'winner' : ''}`}>
+              <div class="player-info">
+                <img src={bracketData.gf.player2.photo} class="player-avatar" alt={bracketData.gf.player2.name}>
+                <span class="player-name">{bracketData.gf.player2.name}</span>
+              </div>
+              <span class="player-score">{bracketData.gf.player2.score}</span>
+            </div>
+          </div>
+
+          <!-- Campeón -->
+          <div class="champion-container">
+            <div class="trophy">🏆</div>
+            <div class="champion-name">{champion.name}</div>
+            <img src={champion.photo} class="champion-avatar" alt={champion.name}>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Modal de detalles del partido -->
+    <div id="matchModal" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50">
+      <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full mx-4 p-8">
+        <div class="flex justify-between items-center mb-6">
+          <h2 id="modalTitle" class="text-3xl font-bold font-space-mono text-[var(--color-accent)]">
+            Detalles del Partido
+          </h2>
+          <button id="closeModal" class="text-4xl hover:text-red-600 transition">&times;</button>
+        </div>
+
+        <div id="modalContent" class="space-y-4">
+          <!-- Se llenará con JavaScript -->
+        </div>
+      </div>
+    </div>
+
+  </section>
+</BaseLayout>
+
+<style>
+  .bracket-container {
+    background: linear-gradient(to bottom, rgba(255,255,255,0.05), transparent);
+    border-radius: 1rem;
+    padding: 2rem;
+  }
+
+  .bracket {
+    display: flex;
+    gap: 4rem;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .bracket-round {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .bracket-round h3 {
+    min-height: 3rem;
+  }
+
+  .bracket-round:nth-child(2) {
+    margin-top: 6rem;
+  }
+
+  .bracket-round:nth-child(3) {
+    margin-top: 12rem;
+  }
+
+  .match {
+    background: white;
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    min-width: 280px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+  }
+
+  .match:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 12px rgba(0,0,0,0.2);
+    border-color: var(--color-accent);
+  }
+
+  .match.grand-final {
+    border: 4px solid #FFD700;
+    background: linear-gradient(135deg, #fff 0%, #fffacd 100%);
+  }
+
+  .match-player {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+  }
+
+  .match-player.winner {
+    background: #d4edda;
+    font-weight: bold;
+  }
+
+  .match-player:hover {
+    background: rgba(107, 78, 255, 0.1);
+  }
+
+  .player-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .player-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--color-accent);
+  }
+
+  .player-name {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  .player-score {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color-accent);
+    min-width: 2rem;
+    text-align: center;
+  }
+
+  .match-divider {
+    text-align: center;
+    color: #999;
+    font-weight: bold;
+    padding: 0.5rem 0;
+  }
+
+  .champion-container {
+    margin-top: 2rem;
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    border-radius: 1rem;
+    box-shadow: 0 8px 16px rgba(255, 215, 0, 0.3);
+  }
+
+  .trophy {
+    font-size: 4rem;
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  .champion-name {
+    font-size: 2rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    margin: 1rem 0;
+  }
+
+  .champion-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid white;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .bracket {
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .bracket-round:nth-child(2),
+    .bracket-round:nth-child(3) {
+      margin-top: 0;
+    }
+  }
+</style>
+
+<script define:vars={{ bracketData }}>
+  // Click en partido para ver detalles
+  document.querySelectorAll('.match').forEach(match => {
+    match.addEventListener('click', () => {
+      const matchId = match.dataset.matchId;
+      const matchData = bracketData[matchId];
+      showMatchDetails(matchId, matchData);
+    });
+  });
+
+  function showMatchDetails(matchId, matchData) {
+    const modal = document.getElementById('matchModal');
+    const modalContent = document.getElementById('modalContent');
+
+    const roundNames = {
+      'quarterfinals': 'Cuartos de Final',
+      'semifinals': 'Semifinal',
+      'grandfinal': 'Gran Final'
+    };
+
+    const round = document.querySelector(`[data-match-id="${matchId}"]`).dataset.round;
+
+    let html = `
+      <div class="text-center mb-6">
+        <h3 class="text-xl font-bold text-gray-600">${roundNames[round]}</h3>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 mb-6">
+        <div class="text-center ${matchData.winner === 1 ? 'bg-green-100 p-4 rounded-lg' : 'p-4'}">
+          <img src="${matchData.player1.photo}" class="w-24 h-24 rounded-full mx-auto mb-2 border-4 border-[var(--color-accent)]">
+          <h4 class="text-2xl font-bold">${matchData.player1.name}</h4>
+          <p class="text-4xl font-bold text-[var(--color-accent)]">${matchData.player1.score}</p>
+        </div>
+        <div class="text-center ${matchData.winner === 2 ? 'bg-green-100 p-4 rounded-lg' : 'p-4'}">
+          <img src="${matchData.player2.photo}" class="w-24 h-24 rounded-full mx-auto mb-2 border-4 border-[var(--color-accent)]">
+          <h4 class="text-2xl font-bold">${matchData.player2.name}</h4>
+          <p class="text-4xl font-bold text-[var(--color-accent)]">${matchData.player2.score}</p>
+        </div>
+      </div>
+    `;
+
+    if (matchData.games && matchData.games.length > 0) {
+      html += `
+        <div class="mt-6">
+          <h4 class="text-xl font-bold mb-4">Partidos Jugados</h4>
+          <div class="space-y-3">
+      `;
+
+      matchData.games.forEach((game, index) => {
+        const winnerName = game.winner === 1 ? matchData.player1.name : matchData.player2.name;
+        html += `
+          <div class="bg-[var(--color-background)] p-3 rounded-lg">
+            <div class="flex justify-between items-center">
+              <span class="font-semibold">Juego ${index + 1}: ${game.name}</span>
+              <span class="bg-[var(--color-accent)] text-white px-3 py-1 rounded-full text-sm">
+                ${winnerName}
+              </span>
+            </div>
+          </div>
+        `;
+      });
+
+      html += `</div></div>`;
+    }
+
+    modalContent.innerHTML = html;
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+
+  document.getElementById('closeModal').addEventListener('click', () => {
+    document.getElementById('matchModal').classList.add('hidden');
+    document.getElementById('matchModal').classList.remove('flex');
+  });
+
+  document.getElementById('matchModal').addEventListener('click', (e) => {
+    if (e.target.id === 'matchModal') {
+      document.getElementById('matchModal').classList.add('hidden');
+      document.getElementById('matchModal').classList.remove('flex');
+    }
+  });
+</script>
