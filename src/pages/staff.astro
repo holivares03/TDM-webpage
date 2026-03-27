@@ -1,0 +1,173 @@
+---
+// src/pages/staff.astro
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const base = import.meta.env.BASE_URL;
+
+const staff = {
+  hosts: [
+    {
+      name: "Blackmoderm10",
+      role: "Host, mappooler, organizador juegos, idea principal",
+      photo: `https://a.ppy.sh/7963246`,
+      twitter: "https://x.com/blackmoderm",
+      twitch: "https://www.twitch.tv/blackmoderm"
+    },
+    {
+      name: "Touche",
+      role: "Host, organizador juegos, setups y horarios, idea principal",
+      photo: "https://a.ppy.sh/1603962",
+      twitter: "https://x.com/tuxe_",
+      twitch: "https://www.twitch.tv/tulimonnn"
+    }
+  ],
+  venueHost: {
+    name: "Lasseh",
+    role: "Organizador setups y horarios",
+    photo: "https://a.ppy.sh/4881251",
+    twitter: "https://x.com/lasseh__",
+    twitch: "https://www.twitch.tv/lassseh"
+  },
+  developer: {
+    name: "Intercambing",
+    role: "Creador de la página, sistema groupstage y bracket.",
+    photo: "https://a.ppy.sh/2546001",
+    twitter: "https://x.com/intercambing",
+    twitch: "https://www.twitch.tv/intercambing_"
+  }
+};
+---
+
+<BaseLayout title="Torre del Mago - Staff">
+  <section class="max-w-6xl mx-auto px-6 py-12">
+    
+    <h1 class="text-5xl font-bold text-center mb-12 font-space-mono text-[var(--color-text)]">
+      Staff del Torneo
+    </h1>
+
+    <!-- Hosts -->
+    <div class="mb-16">
+      <h2 class="text-3xl font-bold mb-8 font-space-mono text-[var(--color-accent)] border-b-4 border-[var(--color-accent)] pb-2">
+        Hosts
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {staff.hosts.map(member => (
+          <div class="bg-white/90 rounded-2xl shadow-lg p-6 border-4 border-[var(--color-navbar)] hover:scale-105 transition-transform">
+            <div class="flex items-center gap-6">
+              <img 
+                src={member.photo} 
+                alt={member.name}
+                class="w-24 h-24 rounded-full object-cover border-4 border-[var(--color-accent)] shadow-lg"
+              />
+              <div class="flex-1">
+                <h3 class="text-2xl font-bold font-space-mono mb-2">{member.name}</h3>
+                <p class="text-lg text-gray-600 mb-3">{member.role}</p>
+                <div class="flex gap-3">
+                  {member.twitter && (
+                    <a 
+                      href={member.twitter} 
+                      target="_blank"
+                      class="hover:opacity-80 transition"
+                    >
+                      <img src={`${base}twitter-icon.svg`} alt="Twitter" class="w-6 h-6" />
+                    </a>
+                  )}
+                  {member.twitch && (
+                    <a 
+                      href={member.twitch} 
+                      target="_blank"
+                      class="hover:opacity-80 transition"
+                    >
+                      <img src={`${base}twitch-icon.svg`} alt="Twitch" class="w-6 h-6" />
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Host del Lugar -->
+    <div class="mb-16">
+      <h2 class="text-3xl font-bold mb-8 font-space-mono text-[var(--color-accent)] border-b-4 border-[var(--color-accent)] pb-2">
+        Host del Lugar
+      </h2>
+      <div class="bg-white/90 rounded-2xl shadow-lg p-6 border-4 border-[var(--color-navbar)] hover:scale-105 transition-transform">
+        <div class="flex items-center gap-6">
+          <img 
+            src={staff.venueHost.photo} 
+            alt={staff.venueHost.name}
+            class="w-24 h-24 rounded-full object-cover border-4 border-[var(--color-accent)] shadow-lg"
+          />
+          <div class="flex-1">
+            <h3 class="text-2xl font-bold font-space-mono mb-2">{staff.venueHost.name}</h3>
+            <p class="text-lg text-gray-600 mb-3">{staff.venueHost.role}</p>
+            <div class="flex gap-3">
+              {staff.venueHost.twitter && (
+                <a 
+                  href={staff.venueHost.twitter} 
+                  target="_blank"
+                  class="hover:opacity-80 transition"
+                >
+                  <img src={`${base}twitter-icon.svg`} alt="Twitter" class="w-6 h-6" />
+                </a>
+              )}
+              {staff.venueHost.twitch && (
+                <a 
+                  href={staff.venueHost.twitch} 
+                  target="_blank"
+                  class="hover:opacity-80 transition"
+                >
+                  <img src={`${base}twitch-icon.svg`} alt="Twitch" class="w-6 h-6" />
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Desarrollador Web -->
+    <div class="mb-16">
+      <h2 class="text-3xl font-bold mb-8 font-space-mono text-[var(--color-accent)] border-b-4 border-[var(--color-accent)] pb-2">
+        Desarrollador Web
+      </h2>
+      <div class="bg-white/90 rounded-2xl shadow-lg p-6 border-4 border-[var(--color-navbar)] hover:scale-105 transition-transform">
+        <div class="flex items-center gap-6">
+          <img 
+            src={staff.developer.photo} 
+            alt={staff.developer.name}
+            class="w-24 h-24 rounded-full object-cover border-4 border-[var(--color-accent)] shadow-lg"
+          />
+          <div class="flex-1">
+            <h3 class="text-2xl font-bold font-space-mono mb-2">{staff.developer.name}</h3>
+            <p class="text-lg text-gray-600 mb-3">{staff.developer.role}</p>
+            <div class="flex gap-3">
+              {staff.developer.twitter && (
+                <a 
+                  href={staff.developer.twitter} 
+                  target="_blank"
+                  class="hover:opacity-80 transition"
+                >
+                  <img src={`${base}twitter-icon.svg`} alt="Twitter" class="w-6 h-6" />
+                </a>
+              )}
+              {staff.developer.twitch && (
+                <a 
+                  href={staff.developer.twitch} 
+                  target="_blank"
+                  class="hover:opacity-80 transition"
+                >
+                  <img src={`${base}twitch-icon.svg`} alt="Twitch" class="w-6 h-6" />
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</BaseLayout>
