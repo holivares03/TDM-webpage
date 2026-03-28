@@ -3,7 +3,7 @@ const base = import.meta.env.BASE_URL;
 ---
 <nav class="bg-[var(--color-navbar)] sticky top-0 z-50 shadow-md">
   <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-    <a href ={base} class="hover:opacity-80 transition">
+    <a href={base} class="hover:opacity-80 transition">
       <img src={`${base}mascota.png`} alt="Torre del Mago" class="h-16 w-auto" />
     </a>
     <ul class="hidden md:flex space-x-10 text-lg font-semibold font-space-mono">
@@ -34,7 +34,75 @@ const base = import.meta.env.BASE_URL;
       </li>
     </ul>
 
-    <div class="md:hidden text-xl cursor-pointer">☰</div>
+    <button id="mobileMenuButton" class="md:hidden text-2xl hover:text-[var(--color-accent)] transition">
+      ☰
+    </button>
+  </div>
 
+  <div id="mobileMenu" class="md:hidden hidden bg-[var(--color-navbar)] border-t border-gray-300">
+    <ul class="flex flex-col space-y-2 px-6 py-4 text-lg font-semibold font-space-mono">
+      <li>
+        <a href={`${base}info`} class="block py-2 hover:text-[var(--color-accent)] transition">
+          Información
+        </a>
+      </li>
+      <li>
+        <a href={`${base}players`} class="block py-2 hover:text-[var(--color-accent)] transition">
+          Jugadores
+        </a>
+      </li>
+      <li>
+        <a href={`${base}grupos`} class="block py-2 hover:text-[var(--color-accent)] transition">
+          Grupos
+        </a>
+      </li>
+      <li>
+        <a href={`${base}bracket`} class="block py-2 hover:text-[var(--color-accent)] transition">
+          Bracket
+        </a>
+      </li>
+      <li>
+        <a href={`${base}staff`} class="block py-2 hover:text-[var(--color-accent)] transition">
+          Staff
+        </a>
+      </li>
+    </ul>
   </div>
 </nav>
+
+<script>
+  const mobileMenuButton = document.getElementById('mobileMenuButton');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  mobileMenuButton?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+    
+    if (mobileMenu?.classList.contains('hidden')) {
+      mobileMenuButton.textContent = '☰';
+    } else {
+      mobileMenuButton.textContent = '✕';
+    }
+  });
+
+  const mobileLinks = mobileMenu?.querySelectorAll('a');
+  mobileLinks?.forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu?.classList.add('hidden');
+      if (mobileMenuButton) {
+        mobileMenuButton.textContent = '☰';
+      }
+    });
+  });
+</script>
+
+<style>
+  #mobileMenu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+  }
+
+  #mobileMenu:not(.hidden) {
+    max-height: 400px;
+  }
+</style>
