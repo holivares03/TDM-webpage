@@ -4,6 +4,22 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 const base = import.meta.env.BASE_URL;
 
+const gameBanners: Record<string, string> = {
+  "Wii Sports: Bowling":       `${base}banners/wiisport.png`,
+  "Wii Sports: Tenis":         `${base}banners/wiisport.png`,
+  "Wii Sports: Boxing":        `${base}banners/wiisport.png`,
+  "Wii Sports: Tiro con arco": `${base}banners/wiisport.png`,
+  "osu!":                      `${base}banners/osu.png`,
+  "TETR.IO":                   `${base}banners/tetrio.png`,
+  "Wario Ware Smooth Moves":   `${base}banners/warioware.png`,
+  "Mario Kart":                `${base}banners/mariokart.png`,
+  "Smash":                     `${base}banners/smash.png`,
+  "Move or Die":               `${base}banners/moveordie.png`,
+  "Chess Blitz":               `${base}banners/chessblitz.png`,
+  "Cachipún":                  `${base}banners/cachipun.png`,
+  "Strikers Charged":          `${base}banners/strikerscharged.png`,
+};
+
 // Datos estáticos del bracket
 const bracketData: Record<string, any> = {
   // Cuartos de Final
@@ -135,15 +151,13 @@ const champion = bracketData.gf.winner === 1
 <BaseLayout title="Torre del Mago - Bracket">
   <section class="max-w-7xl mx-auto px-6 py-12">
     
-    <h1 class="text-5xl font-bold text-center mb-12 font-space-mono text-[var(--color-text)]">
+    <h1 class="text-2xl sm:text-4xl lg:text-5xl font-bold text-center mb-12 font-space-mono text-[var(--color-text)]">
       Bracket - Eliminación Simple
     </h1>
 
-    <!-- Bracket Container -->
     <div class="bracket-container overflow-x-auto pb-8">
       <div class="bracket min-w-max">
         
-        <!-- Cuartos de Final -->
         <div class="bracket-round">
           <h3 class="text-2xl font-bold text-center mb-6 font-space-mono">Cuartos de Final</h3>
           
@@ -171,7 +185,6 @@ const champion = bracketData.gf.winner === 1
           })}
         </div>
 
-        <!-- Semifinales -->
         <div class="bracket-round">
           <h3 class="text-2xl font-bold text-center mb-6 font-space-mono">Semifinales</h3>
           
@@ -199,7 +212,6 @@ const champion = bracketData.gf.winner === 1
           })}
         </div>
 
-        <!-- Final -->
         <div class="bracket-round">
           <h3 class="text-2xl font-bold text-center mb-6 font-space-mono">Gran Final</h3>
           
@@ -221,7 +233,6 @@ const champion = bracketData.gf.winner === 1
             </div>
           </div>
 
-          <!-- Campeón -->
           <div class="champion-container">
             <div class="trophy">🏆</div>
             <div class="champion-name">{champion.name}</div>
@@ -232,7 +243,6 @@ const champion = bracketData.gf.winner === 1
       </div>
     </div>
 
-    <!-- Modal de detalles del partido -->
     <div id="matchModal" class="fixed inset-0 bg-black/80 hidden items-center justify-center z-50">
       <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full mx-4 p-8">
         <div class="flex justify-between items-center mb-6">
@@ -243,7 +253,6 @@ const champion = bracketData.gf.winner === 1
         </div>
 
         <div id="modalContent" class="space-y-4">
-          <!-- Se llenará con JavaScript -->
         </div>
       </div>
     </div>
@@ -399,20 +408,66 @@ const champion = bracketData.gf.winner === 1
   }
 
   @media (max-width: 1024px) {
-    .bracket {
-      flex-direction: column;
-      gap: 2rem;
-    }
-
-    .bracket-round:nth-child(2),
-    .bracket-round:nth-child(3) {
-      margin-top: 0;
-    }
+  .bracket-container {
+    padding: 1rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
+
+  .bracket {
+    flex-direction: column;
+    gap: 2rem;
+    align-items: stretch;
+    min-width: unset;
+  }
+
+  .bracket-round {
+    gap: 1rem;
+  }
+
+  .bracket-round:nth-child(2),
+  .bracket-round:nth-child(3) {
+    margin-top: 0;
+  }
+
+  .match {
+    min-width: unset;
+    width: 100%;
+  }
+
+  .player-name {
+    font-size: 0.9rem;
+  }
+
+  .player-avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .player-score {
+    font-size: 1.2rem;
+  }
+
+  .champion-container {
+    padding: 1.25rem;
+  }
+
+  .trophy {
+    font-size: 3rem;
+  }
+
+  .champion-name {
+    font-size: 1.5rem;
+  }
+
+  .champion-avatar {
+    width: 80px;
+    height: 80px;
+  }
+}
 </style>
 
-<script define:vars={{ bracketData }}>
-  // Click en partido para ver detalles
+<script define:vars={{ bracketData, gameBanners }}>
   document.querySelectorAll('.match').forEach(match => {
     match.addEventListener('click', () => {
       const matchId = match.dataset.matchId;
@@ -461,16 +516,18 @@ const champion = bracketData.gf.winner === 1
 
       matchData.games.forEach((game, index) => {
         const winnerName = game.winner === 1 ? matchData.player1.name : matchData.player2.name;
-        html += `
-          <div class="bg-[var(--color-background)] p-3 rounded-lg">
-            <div class="flex justify-between items-center">
-              <span class="font-semibold">Juego ${index + 1}: ${game.name}</span>
-              <span class="bg-[var(--color-accent)] text-white px-3 py-1 rounded-full text-sm">
-                ${winnerName}
-              </span>
-            </div>
-          </div>
-        `;
+        const banner = gameBanners[game.name];
+html += `
+  <div class="bg-[var(--color-background)] rounded-lg overflow-hidden">
+    <img src="${banner}" alt="${game.name}" class="w-full h-24 sm:h-32 object-cover" style="object-position: 80% center">
+    <div class="flex justify-between items-center p-3">
+      <span class="font-semibold">Juego ${index + 1}: ${game.name}</span>
+      <span class="bg-[var(--color-accent)] text-white px-3 py-1 rounded-full text-sm">
+        ${winnerName}
+      </span>
+    </div>
+  </div>
+`;
       });
 
       html += `</div></div>`;
