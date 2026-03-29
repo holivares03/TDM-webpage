@@ -411,7 +411,7 @@ function updateMatchHistory(group: string): void {
     return;
   }
 
-  container.innerHTML = [...groupMatches[group]]
+  /* container.innerHTML = [...groupMatches[group]]
     .reverse()
     .map(match => {
       const p1 =
@@ -435,7 +435,7 @@ function updateMatchHistory(group: string): void {
           </div>
 
           <!-- BOTÓN AQUÍ -->
-          <button
+          <!--<button
             class="text-red-600 font-bold hover:underline delete-match-btn"
             data-group="${group}"
             data-id="${match.id}"
@@ -445,7 +445,7 @@ function updateMatchHistory(group: string): void {
         </div>
       `;
     })
-    .join('');
+    .join('');*/
 }
 
 
