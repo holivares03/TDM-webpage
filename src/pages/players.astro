@@ -24,22 +24,22 @@ const playerOsuIds = [
 ];
 
 const socialLinks: Record<number, { twitter: string; twitch: string }> = {
-  4881251: { twitter: "https://x.com/lasseh__", twitch: "https://www.twitch.tv/lassseh" },
-  2546001: { twitter: "https://x.com/intercambing", twitch: "https://www.twitch.tv/intercambing_" },
-  11786864: { twitter: "https://x.com/siiphs", twitch: "https://www.twitch.tv/siiphs" },
-  5339515: { twitter: "https://x.com/mathi501", twitch: "https://www.twitch.tv/mathi" },
-  13058814: { twitter: "https://x.com/iSaneDraven", twitch: "https://www.twitch.tv/xuyidd" },
-  5386106: { twitter: "https://x.com/Deruz_", twitch: "https://www.twitch.tv/deruz" },
-  11022739: { twitter: "https://x.com/sarondres3", twitch: "https://www.twitch.tv/sarondres" },
-  5298487: { twitter: "https://x.com/MonkiDonkii", twitch: "https://www.twitch.tv/MonkiDonki" },
-  5619615: { twitter: "https://x.com/nixiaa", twitch: "https://www.twitch.tv/nixiaaa" },
-  1603962: { twitter: "https://x.com/tuxe_", twitch: "https://www.twitch.tv/tulimonnn" },
-  36679874: { twitter: "https://x.com/yoistr_", twitch: "https://www.twitch.tv/yoistr" },
-  11207004: { twitter: "https://x.com/turtl17", twitch: "https://www.twitch.tv/tfgestu" },
-  18946207: { twitter: "https://x.com/notnekore", twitch: "https://www.twitch.tv/nekorecl" },
-  6194830: { twitter: "https://x.com/ShinyFroakie4", twitch: "https://www.twitch.tv/shinyfroakkie" },
-  7963246: { twitter: "https://x.com/BlackModerm", twitch: "https://www.twitch.tv/blackmoderm" },
-  36471978: { twitter: "https://x.com/notiene", twitch: "https://www.twitch.tv/notiene" },
+  4881251:  { twitter: "https://x.com/lasseh__",       twitch: "https://www.twitch.tv/lassseh" },
+  2546001:  { twitter: "https://x.com/intercambing",   twitch: "https://www.twitch.tv/intercambing_" },
+  11786864: { twitter: "https://x.com/siiphs",         twitch: "https://www.twitch.tv/siiphs" },
+  5339515:  { twitter: "https://x.com/mathi501",       twitch: "https://www.twitch.tv/mathi" },
+  13058814: { twitter: "https://x.com/iSaneDraven",    twitch: "https://www.twitch.tv/xuyidd" },
+  5386106:  { twitter: "https://x.com/Deruz_",         twitch: "https://www.twitch.tv/deruz" },
+  11022739: { twitter: "https://x.com/sarondres3",     twitch: "https://www.twitch.tv/sarondres" },
+  5298487:  { twitter: "https://x.com/MonkiDonkii",    twitch: "https://www.twitch.tv/MonkiDonki" },
+  5619615:  { twitter: "https://x.com/nixiaa",         twitch: "https://www.twitch.tv/nixiaaa" },
+  1603962:  { twitter: "https://x.com/tuxe_",          twitch: "https://www.twitch.tv/tulimonnn" },
+  36679874: { twitter: "https://x.com/yoistr_",        twitch: "https://www.twitch.tv/yoistr" },
+  11207004: { twitter: "https://x.com/turtl17",        twitch: "https://www.twitch.tv/tfgestu" },
+  18946207: { twitter: "https://x.com/notnekore",      twitch: "https://www.twitch.tv/nekorecl" },
+  6194830:  { twitter: "https://x.com/ShinyFroakie4",  twitch: "https://www.twitch.tv/shinyfroakkie" },
+  7963246:  { twitter: "https://x.com/BlackModerm",    twitch: "https://www.twitch.tv/blackmoderm" },
+  36471978: { twitter: "https://x.com/notiene",        twitch: "https://www.twitch.tv/notiene" },
 };
 
 let osuUsers: any[] = [];
@@ -51,7 +51,6 @@ try {
 
 const players = osuUsers.map((user: any, index: number) => {
   const social = socialLinks[user.id] || { twitter: "", twitch: "" };
-  
   return {
     id: index + 1,
     name: user.username,
@@ -67,28 +66,29 @@ const players = osuUsers.map((user: any, index: number) => {
 });
 ---
 
-<BaseLayout 
+<BaseLayout
   title="Torre del Mago - Participantes"
   description="Conoce a los 17 players invitados del team a participar por el torneo!"
   image="playersbg.png"
 >
   <section class="max-w-7xl mx-auto px-6 py-12">
-    <h1 class="text-5xl font-bold text-center mb-12 font-space-mono text-[var(--color-text)]">
-      Participantes
-    </h1>
-    
+    <h1 class="text-2xl sm:text-4xl lg:text-5xl font-bold text-center mb-12 font-space-mono text-[var(--color-text)]">
+  Participantes
+</h1>
+
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+
       <div class="order-2 lg:order-1">
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {players.map((player, index) => (
-            <div 
+            <div
               class="player-card cursor-pointer transform transition-all duration-300 hover:scale-110"
               data-player-id={player.id}
               data-selected={index === 0 ? "true" : "false"}
             >
               <div class="relative rounded-lg overflow-hidden shadow-lg">
-                <img 
-                  src={player.photo} 
+                <img
+                  src={player.photo}
                   alt={player.name}
                   class="w-full h-32 object-cover"
                 />
@@ -97,75 +97,76 @@ const players = osuUsers.map((user: any, index: number) => {
                     {player.name}
                   </h3>
                 </div>
-                <!-- Borde de selección -->
                 <div class="selection-border absolute inset-0 border-4 border-transparent transition-all duration-300"></div>
               </div>
             </div>
           ))}
         </div>
       </div>
+      <div class="order-1 lg:order-2 lg:sticky lg:top-24">
+        <div class="card-shell" id="cardShell">
 
-<div class="order-1 lg:order-2 lg:sticky lg:top-24">
-  <div class="relative">
-    <img 
-      src={`${base}planilla.png`} 
-      alt="Player Stats Sheet" 
-      class="w-full rounded-lg shadow-2xl"
-    />
-    
-    <div class="absolute inset-0">
-      <img 
-        id="selectedPlayerPhoto"
-        src={players[0].photo}
-        alt="Selected Player"
-        class="absolute w-32 h-32 rounded-full object-cover border-4 border-[var(--color-accent)] shadow-lg"
-        style="top: 15%; left: 8%;"
-      />
+          <img
+            src={`${base}planilla.png`}
+            alt="Player Stats Sheet"
+            class="card-bg"
+            id="cardBg"/>
 
-      <h2 
-        id="selectedPlayerName" 
-        class="absolute text-3xl font-bold font-space-mono text-[var(--color-text)]"
-        style="top: 32%; right: 19%; transform: rotate(-3deg);"
-      >
-        {players[0].name}
-      </h2>
+          <img
+            id="selectedPlayerPhoto"
+            src={players[0].photo}
+            alt="Selected Player"
+            class="card-avatar"/>
 
-      <div class="absolute" style="top: 55.2%; left: 25%; transform: rotate(-3deg);">
-        <span id="selectedPlayerRank" class="font-bold font-space-mono text-xl">{players[0].rank}</span>
-      </div>
-      
-      <div class="absolute" style="top: 54.4%; left: 47.5%; transform: rotate(-3deg);">
-        <span id="selectedPlayerRankChile" class="font-bold font-font-space-mono text-xl">{players[0].chile}</span>
-      </div>
+          <span
+            id="selectedPlayerName"
+            class="card-overlay card-name">{players[0].name}</span>
 
-      <div class="absolute" style="top: 53.4%; left: 67%; transform: rotate(-3deg);">
-        <span id="selectedPlayerPP" class="font-bold font-font-space-mono text-xl">{players[0].pp}</span>
-      </div>
-      
-      <div class="absolute" style="top: 37%; right: 19%; transform: rotate(-3deg);">
-        <span id="selectedPlayerAccuracy" class="font-bold font-space-mono text-2xl">{players[0].accuracy}</span>
-      </div>
-      
-      <div id="perfilContainer" class="absolute" style="top: 66.6%; left: 30%; transform: rotate(-3deg);">
-        <a id="selectedPlayerPerfil" href={players[0].perfil} target="_blank" class="hover:opacity-80 transition">
-          <img src={`${base}forum-icon.svg`} alt="Perfil" class="w-11 h-11" />
-        </a>
-      </div>
+          <span
+            id="selectedPlayerAccuracy"
+            class="card-overlay card-accuracy">{players[0].accuracy}</span>
 
-      <div id="twitterContainer" class="absolute" style="top: 67%; left: 20%; transform: rotate(-3deg);">
-        <a id="selectedPlayerTwitter" href={players[0].twitter} target="_blank" class="hover:opacity-80 transition">
-          <img src={`${base}twitter-icon.svg`} alt="Twitter" class="w-12 h-12" />
-        </a>
-      </div>
+          <span
+            id="selectedPlayerRank"
+            class="card-overlay card-rank">{players[0].rank}</span>
 
-      <div id="twitchContainer" class="absolute" style="top: 66%; left: 39%; transform: rotate(-3deg);">
-        <a id="selectedPlayerTwitch" href={players[0].twitch} target="_blank" class="hover:opacity-80 transition">
-          <img src={`${base}twitch-icon.svg`} alt="Twitch" class="w-12 h-12" />
-        </a>
+          <span
+            id="selectedPlayerRankChile"
+            class="card-overlay card-chile">{players[0].chile}</span>
+
+          <span
+            id="selectedPlayerPP"
+            class="card-overlay card-pp">{players[0].pp}</span>
+
+          <a
+            id="selectedPlayerTwitter"
+            href={players[0].twitter}
+            target="_blank"
+            class="card-overlay card-twitter card-icon"
+            title="Twitter">
+            <img src={`${base}twitter-icon.svg`} alt="Twitter" class="icon-img" />
+          </a>
+
+          <a
+            id="selectedPlayerPerfil"
+            href={players[0].perfil}
+            target="_blank"
+            class="card-overlay card-perfil card-icon"
+            title="Perfil osu!">
+            <img src={`${base}forum-icon.svg`} alt="Perfil" class="icon-img" />
+          </a>
+
+          <a
+            id="selectedPlayerTwitch"
+            href={players[0].twitch}
+            target="_blank"
+            class="card-overlay card-twitch card-icon"
+            title="Twitch">
+            <img src={`${base}twitch-icon.svg`} alt="Twitch" class="icon-img" />
+          </a>
+
+        </div>
       </div>
-    </div>
-  </div>
-</div>
 
     </div>
   </section>
@@ -197,99 +198,217 @@ const players = osuUsers.map((user: any, index: number) => {
   }
 
   @keyframes pulse {
-    0%, 100% {
-      opacity: 0.3;
-    }
-    50% {
-      opacity: 0.6;
-    }
+    0%, 100% { opacity: 0.3; }
+    50%       { opacity: 0.6; }
+  }
+
+  /* ════════════════════════════════════════════
+     CARTA DE PRESENTACIÓN — SISTEMA ESCALABLE
+     ════════════════════════════════════════════
+     1. .card-shell  = contenedor relativo + container query
+        La imagen (.card-bg) define el tamaño real del contenedor.
+        Todo lo demás se posiciona sobre ella con %.
+     2. Todos los tamaños de texto usan cqw para escalar con el ancho.
+     3. El avatar usa width/height en % del contenedor para escalar.
+  ════════════════════════════════════════════ */
+
+  .card-shell {
+    position: relative;
+    container-type: inline-size;
+    width: 100%;
+  }
+
+  .card-bg {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4);
+  }
+
+  .card-overlay {
+    position: absolute;
+    transform: rotate(-3deg);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .card-avatar {
+    position: absolute;
+    top: 15%;
+    left: 8%;
+    width: 25%;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    object-fit: cover;
+    /* El borde también escala con cqw */
+    border: 0.6cqw solid var(--color-accent);
+    box-shadow: 0 0.4cqw 1.5cqw rgba(0,0,0,0.4);
+    transition: opacity 0.3s ease;
+  }
+
+  .card-name {
+    top: 32%;
+    right: 19%;
+    font-size: 4.5cqw;
+    font-weight: bold;
+    font-family: 'Space Mono', monospace;
+    color: var(--color-text);
+    white-space: nowrap;
+    max-width: 45cqw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .card-accuracy {
+    top: 37%;
+    right: 19%;
+    font-size: 3.8cqw;
+    font-weight: bold;
+    font-family: 'Space Mono', monospace;
+    color: var(--color-text);
+  }
+
+  .card-rank {
+    top: 55.2%;
+    left: 25%;
+    font-size: 3.2cqw;
+    font-weight: bold;
+    font-family: 'Space Mono', monospace;
+    color: var(--color-text);
+  }
+
+  .card-chile {
+    top: 54.4%;
+    left: 47.5%;
+    font-size: 3.2cqw;
+    font-weight: bold;
+    font-family: 'Space Mono', monospace;
+    color: var(--color-text);
+  }
+
+  .card-pp {
+    top: 53.4%;
+    left: 67%;
+    font-size: 3.2cqw;
+    font-weight: bold;
+    font-family: 'Space Mono', monospace;
+    color: var(--color-text);
+  }
+
+  .card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 8cqw;
+    aspect-ratio: 1 / 1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .card-icon:hover {
+    opacity: 0.75;
+    transform: rotate(-3deg) scale(1.1);
+  }
+
+  .icon-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .card-twitter {
+    top: 67%;
+    left: 20%;
+  }
+
+  .card-perfil {
+    top: 66.6%;
+    left: 30%;
+  }
+
+  .card-twitch {
+    top: 66%;
+    left: 39%;
+  }
+
+  .card-overlay.fading,
+  .card-avatar.fading {
+    opacity: 0;
+    transform: rotate(-3deg) translateY(8px);
+  }
+
+  .card-icon.fading {
+    opacity: 0;
+    transform: rotate(-3deg) translateY(8px) scale(0.95);
   }
 </style>
 
 <script define:vars={{ players }}>
   const playerCards = document.querySelectorAll('.player-card');
 
+  const els = {
+    photo:    document.getElementById('selectedPlayerPhoto'),
+    name:     document.getElementById('selectedPlayerName'),
+    rank:     document.getElementById('selectedPlayerRank'),
+    chile:    document.getElementById('selectedPlayerRankChile'),
+    pp:       document.getElementById('selectedPlayerPP'),
+    accuracy: document.getElementById('selectedPlayerAccuracy'),
+    perfil:   document.getElementById('selectedPlayerPerfil'),
+    twitter:  document.getElementById('selectedPlayerTwitter'),
+    twitch:   document.getElementById('selectedPlayerTwitch'),
+  };
+
+  function fadeOut() {
+    Object.values(els).forEach(el => el?.classList.add('fading'));
+  }
+
+  function fadeIn() {
+    Object.values(els).forEach((el, i) => {
+      if (!el) return;
+      setTimeout(() => el.classList.remove('fading'), i * 40);
+    });
+  }
+
+  function updatePlayer(player) {
+    /* Datos */
+    els.photo.src              = player.photo;
+    els.photo.alt              = player.name;
+    els.name.textContent       = player.name;
+    els.rank.textContent       = player.rank;
+    els.chile.textContent      = player.chile;
+    els.pp.textContent         = player.pp;
+    els.accuracy.textContent   = player.accuracy;
+
+    /* Sociales: actualizar href y ocultar si no existe */
+    const updateLink = (el, href) => {
+      if (href) {
+        el.href = href;
+        el.style.display = 'flex';
+      } else {
+        el.style.display = 'none';
+      }
+    };
+
+    updateLink(els.perfil,  player.perfil);
+    updateLink(els.twitter, player.twitter);
+    updateLink(els.twitch,  player.twitch);
+  }
+
   playerCards.forEach(card => {
     card.addEventListener('click', () => {
       const playerId = parseInt(card.dataset.playerId);
       const player = players.find(p => p.id === playerId);
-      
-      if (player) {
+      if (!player) return;
 
-        playerCards.forEach(c => c.dataset.selected = "false");
-        
-        card.dataset.selected = "true";
-        
-        const elements = {
-          photo: document.getElementById('selectedPlayerPhoto'),
-          name: document.getElementById('selectedPlayerName'),
-          rank: document.getElementById('selectedPlayerRank'),
-          chile: document.getElementById('selectedPlayerRankChile'),
-          pp: document.getElementById('selectedPlayerPP'),
-          accuracy: document.getElementById('selectedPlayerAccuracy'),
-          perfil: document.getElementById('selectedPlayerPerfil'),
-          twitter: document.getElementById('selectedPlayerTwitter'),
-          twitch: document.getElementById('selectedPlayerTwitch')
-        };
+      /* Selección visual */
+      playerCards.forEach(c => c.dataset.selected = 'false');
+      card.dataset.selected = 'true';
 
-        const socialContainers = {
-          perfil: document.getElementById('perfilContainer'),
-          twitter: document.getElementById('twitterContainer'),
-          twitch: document.getElementById('twitchContainer')
-        };
-
-        // Efecto fade
-        Object.values(elements).forEach(el => {
-          if (el) {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(10px)';
-          }
-        });
-
-        setTimeout(() => {
-          elements.photo.src = player.photo;
-          elements.name.textContent = player.name;
-          elements.rank.textContent = player.rank;
-          elements.pp.textContent = player.pp;
-          elements.chile.textContent = player.chile;
-          elements.accuracy.textContent = player.accuracy;
-
-          if (player.perfil) {
-            socialContainers.perfil.style.display = 'block';
-            elements.perfil.href = player.perfil;
-          } else {
-            socialContainers.perfil.style.display = 'none';
-          }
-
-          if (player.twitter) {
-            socialContainers.twitter.style.display = 'block';
-            elements.twitter.href = player.twitter;
-          } else {
-            socialContainers.twitter.style.display = 'none';
-          }
-
-          if (player.twitch) {
-            socialContainers.twitch.style.display = 'block';
-            elements.twitch.href = player.twitch;
-          } else {
-            socialContainers.twitch.style.display = 'none';
-          }
-
-          Object.values(elements).forEach((el, index) => {
-            if (el) {
-              setTimeout(() => {
-                el.style.transition = 'all 0.3s ease';
-                el.style.opacity = '1';
-                if (el.id === 'selectedPlayerName') {
-                  el.style.transform = 'translateY(0) rotate(-3deg)';
-                } else {
-                  el.style.transform = 'translateY(0)';
-                }
-              }, index * 50);
-            }
-          });
-        }, 150);
-      }
+      /* Transición: fade out → actualizar datos → fade in */
+      fadeOut();
+      setTimeout(() => {
+        updatePlayer(player);
+        fadeIn();
+      }, 160);
     });
   });
 </script>

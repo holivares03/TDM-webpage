@@ -44,3 +44,8 @@ body {
   font-weight: 700;
   font-style: italic;
 }
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
