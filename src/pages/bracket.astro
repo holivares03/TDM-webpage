@@ -494,17 +494,17 @@ const champion = bracketData.gf.winner === 1
       </div>
 
       <div class="grid grid-cols-2 gap-4 mb-6">
-        <div class="text-center ${matchData.winner === 1 ? 'bg-green-100 p-4 rounded-lg' : 'p-4'}">
-          <img src="${matchData.player1.photo}" class="w-24 h-24 rounded-full mx-auto mb-2 border-4 border-[var(--color-accent)]">
-          <h4 class="text-2xl font-bold">${matchData.player1.name}</h4>
-          <p class="text-4xl font-bold text-[var(--color-accent)]">${matchData.player1.score}</p>
-        </div>
-        <div class="text-center ${matchData.winner === 2 ? 'bg-green-100 p-4 rounded-lg' : 'p-4'}">
-          <img src="${matchData.player2.photo}" class="w-24 h-24 rounded-full mx-auto mb-2 border-4 border-[var(--color-accent)]">
-          <h4 class="text-2xl font-bold">${matchData.player2.name}</h4>
-          <p class="text-4xl font-bold text-[var(--color-accent)]">${matchData.player2.score}</p>
-        </div>
-      </div>
+  <div class="text-center ${matchData.winner === 1 ? 'bg-green-100 p-2 sm:p-4 rounded-lg' : 'p-2 sm:p-4'}">
+    <img src="${matchData.player1.photo}" class="w-16 h-16 sm:w-24 sm:h-24 rounded-full mx-auto mb-2 border-4 border-[var(--color-accent)]">
+    <h4 class="text-sm sm:text-2xl font-bold break-all">${matchData.player1.name}</h4>
+    <p class="text-2xl sm:text-4xl font-bold text-[var(--color-accent)]">${matchData.player1.score}</p>
+  </div>
+  <div class="text-center ${matchData.winner === 2 ? 'bg-green-100 p-2 sm:p-4 rounded-lg' : 'p-2 sm:p-4'}">
+    <img src="${matchData.player2.photo}" class="w-16 h-16 sm:w-24 sm:h-24 rounded-full mx-auto mb-2 border-4 border-[var(--color-accent)]">
+    <h4 class="text-sm sm:text-2xl font-bold break-all">${matchData.player2.name}</h4>
+    <p class="text-2xl sm:text-4xl font-bold text-[var(--color-accent)]">${matchData.player2.score}</p>
+  </div>
+</div>
     `;
 
     if (matchData.games && matchData.games.length > 0) {
