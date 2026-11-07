@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getMultipleOsuUsers } from "../utils/osuApi";
+import { getOsuUser } from "../utils/osuApi";
 
 const base = import.meta.env.BASE_URL;
 
@@ -42,12 +42,38 @@ const socialLinks: Record<number, { twitter: string; twitch: string }> = {
   36471978: { twitter: "https://x.com/notiene",        twitch: "https://www.twitch.tv/notiene" },
 };
 
-let osuUsers: any[] = [];
-try {
-  osuUsers = await getMultipleOsuUsers(playerOsuIds);
-} catch (error) {
-  console.error('Error fetching osu! users:', error);
-}
+// Datos manuales de respaldo por si la API no encuentra un perfil (ej. cuenta restringida)
+// Stats tomadas de la API el 07-11-2026
+const manualUsers: Record<number, { username: string; statistics: any }> = {
+  4881251:  { username: "Lasseh",        statistics: { global_rank: 4409,   country_rank: 67,   pp: 11048.6, hit_accuracy: 97.8101 } },
+  2546001:  { username: "Intercambing",  statistics: { global_rank: 53,     country_rank: 2,    pp: 20024,   hit_accuracy: 98.45 } },
+  11786864: { username: "siiphs",        statistics: { global_rank: 1303,   country_rank: 19,   pp: 13411.7, hit_accuracy: 98.6586 } },
+  5339515:  { username: "Mathi",         statistics: { global_rank: 52,     country_rank: 1,    pp: 20246.1, hit_accuracy: 99.2831 } },
+  13058814: { username: "Renscereol",    statistics: { global_rank: 31284,  country_rank: 403,  pp: 7417.33, hit_accuracy: 99.031 } },
+  5386106:  { username: "deruz",         statistics: { global_rank: 2327,   country_rank: 34,   pp: 12275.2, hit_accuracy: 98.0334 } },
+  11022739: { username: "sarondres",     statistics: { global_rank: 15971,  country_rank: 228,  pp: 8702.29, hit_accuracy: 97.6825 } },
+  5298487:  { username: "MonkiDonki",    statistics: { global_rank: 105421, country_rank: 1311, pp: 5139.9,  hit_accuracy: 98.4368 } },
+  5619615:  { username: "Nixiaa",        statistics: { global_rank: 157206, country_rank: 1991, pp: 4328.68, hit_accuracy: 97.2237 } },
+  1603962:  { username: "Touche",        statistics: { global_rank: 101028, country_rank: 1259, pp: 5221.62, hit_accuracy: 99.0764 } },
+  36679874: { username: "yoistr",        statistics: { global_rank: null,   country_rank: null, pp: 0,       hit_accuracy: 0 } },
+  11207004: { username: "tfge",          statistics: { global_rank: 1279,   country_rank: 18,   pp: 13440.3, hit_accuracy: 98.5531 } },
+  18946207: { username: "Nekore",        statistics: { global_rank: 209,    country_rank: 4,    pp: 17205.9, hit_accuracy: 98.8667 } },
+  6194830:  { username: "Shiny Froakie", statistics: { global_rank: 7675,   country_rank: 113,  pp: 10056,   hit_accuracy: 99.0877 } },
+  7963246:  { username: "Blackmoderm10", statistics: { global_rank: 4003,   country_rank: 64,   pp: 11237.2, hit_accuracy: 98.5225 } },
+  36471978: { username: "rathalina",     statistics: { global_rank: null,   country_rank: null, pp: 0,       hit_accuracy: 90.2045 } },
+};
+
+// Se pide cada perfil por separado para que un fallo no bote la página completa
+const results = await Promise.allSettled(playerOsuIds.map(id => getOsuUser(id)));
+const osuUsers = results
+  .map((result, i) => {
+    const id = playerOsuIds[i];
+    if (result.status === 'fulfilled') return result.value;
+    console.error(`Error fetching osu! user ${id}, usando datos manuales:`, result.reason);
+    const manual = manualUsers[id];
+    return manual && { id, avatar_url: `https://a.ppy.sh/${id}`, ...manual };
+  })
+  .filter(Boolean);
 
 const players = osuUsers.map((user: any, index: number) => {
   const social = socialLinks[user.id] || { twitter: "", twitch: "" };
