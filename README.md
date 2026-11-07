@@ -46,7 +46,7 @@ Torre del Mago Invitacional es un torneo 1v1 de varios juegos diseñado por un g
       <sub>🏠 Host lugar</sub>
     </td>
     <td align="center" width="200">
-      <img src="./public/pfps/intercambing.jpg" width="120px;" style="border-radius: 50%;" alt="Organizador"/><br />
+      <img src="https://avatars.githubusercontent.com/u/213156105?v=4" width="120px;" style="border-radius: 50%;" alt="Organizador"/><br />
       <sub><b>holivares03</b></sub><br />
       <sub>⚙️ Desarrollador página</sub>
     </td>
